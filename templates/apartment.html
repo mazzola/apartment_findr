@@ -50,20 +50,13 @@
                 <h5>Megan Baker, Najla Elmachtoub, Michael Mazzola</h5>
                 <hr />
             </div>
-            
-            {% for listing in listings %}
-            
+                        
             {% if 'title' in listing %}
-            <div class="twelve columns">
+            <div class="sixteen columns">
                 <h3>{{ listing['title'] }}</h3>
             </div>
             {% end %}
             
-            {% if 'score' in listing %}
-            <div class="four columns">
-                <h3>Score = {{ listing['score'] }}</h3>
-            </div>
-            {% end %}
             
             <div class="sixteen columns">
                 <div class="seven columns alpha">
@@ -95,6 +88,41 @@
                     {% end %}  
                     
                 </div>
+            </div>
+
+            <div class="sixteen columns">
+                {% if 'foodscore' in listing %}
+                <h5>Food score: {{ listing['foodscore'] }}</h5>
+                {% end %}
+                
+                {% if 'shoppingscore' in listing %}
+                <h5>Shopping score: {{ listing['shoppingscore'] }}</h5>
+                {% end %}
+                
+                {% if 'activescore' in listing %}
+                <h5>Active Life score: {{ listing['activescore'] }}</h5>
+                {% end %}
+                
+                {% if 'restuarantscore' in listing %}
+                <h5>Restuarants score: {{ listing['restaurantscore'] }}</h5>
+                {% end %}
+                
+                {% if 'beautyscore' in listing %}
+                <h5>Beauty &amp; Spas score: {{ listing['beautyscore'] }}</h5>
+                {% end %}
+                
+                {% if 'nightlifescore' in listing %}
+                <h5>Nightlife score: {{ listing['nightlifescore'] }}</h5>
+                {% end %}
+                
+                {% if 'educationscore' in listing %}
+                <h5>Education score: {{ listing['educationscore'] }}</h5>
+                {% end %}
+                
+                {% if 'artsscore' in listing %}
+                <h5>Arts &amp; Entertainment score: {{ listing['artsscore'] }}</h5>
+                {% end %}
+                
             </div>
             
         </div><!-- container -->
