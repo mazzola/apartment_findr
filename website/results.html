@@ -16,25 +16,25 @@
                      ================================================== -->
                     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
                         
-        <!-- CSS
-        ================================================== -->
-        <link rel="stylesheet" href="stylesheets/base.css">
-        <link rel="stylesheet" href="stylesheets/skeleton.css">
-        <link rel="stylesheet" href="stylesheets/layout.css">
-        <link rel="stylesheet" href="stylesheets/slider.css">
+                        <!-- CSS
+                         ================================================== -->
+                        <link rel="stylesheet" href="stylesheets/base.css">
+                            <link rel="stylesheet" href="stylesheets/skeleton.css">
+                                <link rel="stylesheet" href="stylesheets/layout.css">
+                                    <link rel="stylesheet" href="stylesheets/slider.css">
                                         
-         <!--[if lt IE 9]>
-        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-        <![endif]-->
+                                        <!--[if lt IE 9]>
+                                         <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+                                         <![endif]-->
                                         
-        <!-- Favicons
-        ================================================== -->
-        <link rel="shortcut icon" href="images/favicon.ico">
-        <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
-        <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
-        <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+                                        <!-- Favicons
+                                         ================================================== -->
+                                        <link rel="shortcut icon" href="images/favicon.ico">
+                                            <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+                                                <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+                                                    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
                                                         
-    </head>
+                                                        </head>
     <body>
         
         
@@ -50,155 +50,53 @@
                 <h5>Megan Baker, Najla Elmachtoub, Michael Mazzola</h5>
                 <hr />
             </div>
-            
-            
-            <div class="twelve columns">
-                <h3>Name of Listing One</h3>
+ 
+        {% for listing in listings %}
+        
+        {% if 'title' in listing %}
+        <div class="twelve columns">
+            <h3>{{ listing['title'] }}</h3>
+        </div>
+        {% end %}
+        
+        {% if 'score' in listing %}
+        <div class="four columns">
+            <h3>Score = {{ listing['score'] }}</h3>
+        </div>
+        {% end %}
+        
+        <div class="sixteen columns">
+            <div class="seven columns alpha">
+                {% if 'pic' in listing %}
+                <center><img src="{{ listing['pic'] }}" height="250"></center>
+                {% end %}
             </div>
-            
-            <div class="four columns">
-                <h3>Score = 100</h3>
+            <div class="nine columns omega">
+                
+                {% if 'bedrooms' in listing %}
+                <h5>Number of bedrooms: {{ listing['bedrooms'] }}</h5>
+                {% end %}
+                
+                {% if 'bathrooms' in listing %}
+                <h5>Number of bathrooms: {{ listing['bathrooms'] }}</h5>
+                {% end %}
+                
+                {% if 'price' in listing %}
+                <h5>Price: {{ listing['price'] }}</h5>
+                {% end %}
+                
+                {% if 'url' in listing %}
+                <h5>Original Post: <a href="{{ listing['url'] }}">{{ listing['url'] }}</a></h5>
+                {% end %}
+                
+                {% if 'description' in listing %}                
+                <h5>Description:</h5>
+                <p>{{ listing['description'] }}</p>
+                {% end %}
+                
             </div>
+        </div>
             
-            <div class="sixteen columns">
-                <div class="seven columns alpha">
-                    <center><img src="images/sample.jpg" height="250"></center>
-                </div>
-                <div class="nine columns omega">
-                    <h5>Number of bedrooms: 4</h5>
-                    <h5>Number of bathrooms: 1</h5>
-                    <h5>Price: $500</h5>
-                    <h5>Original Post: <a href="http://newyork.craigslist.org/">http://newyork.craigslist.org/</a></h5>
-                    <h5>Description:</h5>
-                    <p>Description of the apartment. Description of the apartment. Description of the apartment. Description of the apartment. Description of the apartment. Description of the apartment. Description of the apartment. Description of the apartment. Description of the apartment. Description of the apartment. Description of the apartment. Description of the apartment. Description of the apartment. </p>
-                    
-                </div>
-            </div>
-            
-            
-            <div class="twelve columns">
-                <p></p>
-                <h3>Name of Listing One</h3>
-            </div>
-            
-            <div class="four columns">
-                <h3>Score = 100</h3>
-            </div>
-            
-            <div class="sixteen columns">
-                <div class="seven columns alpha">
-                    <center><img src="images/sample.jpg" height="250"></center>
-                </div>
-                <div class="nine columns omega">
-                    <h5>Number of bedrooms: 4</h5>
-                    <h5>Number of bathrooms: 1</h5>
-                    <h5>Price: $500</h5>
-                    <h5>Original Post: <a href="http://newyork.craigslist.org/">http://newyork.craigslist.org/</a></h5>
-                    <h5>Description:</h5>
-                    <p>Description of the apartment. Description of the apartment. Description of the apartment. Description of the apartment. Description of the apartment. Description of the apartment. Description of the apartment. Description of the apartment. Description of the apartment. Description of the apartment. Description of the apartment. Description of the apartment. Description of the apartment. </p>
-                    
-                </div>
-            </div>
-            <div class="twelve columns">
-                <p></p>
-                <h3>Name of Listing One</h3>
-            </div>
-            
-            <div class="four columns">
-                <h3>Score = 100</h3>
-            </div>
-            
-            <div class="sixteen columns">
-                <div class="seven columns alpha">
-                    <center><img src="images/sample.jpg" height="250"></center>
-                </div>
-                <div class="nine columns omega">
-                    <h5>Number of bedrooms: 4</h5>
-                    <h5>Number of bathrooms: 1</h5>
-                    <h5>Price: $500</h5>
-                    <h5>Original Post: <a href="http://newyork.craigslist.org/">http://newyork.craigslist.org/</a></h5>
-                    <h5>Description:</h5>
-                    <p>Description of the apartment. Description of the apartment. Description of the apartment. Description of the apartment. Description of the apartment. Description of the apartment. Description of the apartment. Description of the apartment. Description of the apartment. Description of the apartment. Description of the apartment. Description of the apartment. Description of the apartment. </p>
-                    
-                </div>
-            </div>
-            
-            <div class="twelve columns">
-                <p></p>
-                <h3>Name of Listing One</h3>
-            </div>
-            
-            <div class="four columns">
-                <h3>Score = 100</h3>
-            </div>
-            
-            <div class="sixteen columns">
-                <div class="seven columns alpha">
-                    <center><img src="images/sample.jpg" height="250"></center>
-                </div>
-                <div class="nine columns omega">
-                    <h5>Number of bedrooms: 4</h5>
-                    <h5>Number of bathrooms: 1</h5>
-                    <h5>Price: $500</h5>
-                    <h5>Original Post: <a href="http://newyork.craigslist.org/">http://newyork.craigslist.org/</a></h5>
-                    <h5>Description:</h5>
-                    <p>Description of the apartment. Description of the apartment. Description of the apartment. Description of the apartment. Description of the apartment. Description of the apartment. Description of the apartment. Description of the apartment. Description of the apartment. Description of the apartment. Description of the apartment. Description of the apartment. Description of the apartment. </p>
-                    
-                </div>
-            </div>
-            
-            
-            <div class="twelve columns">
-                <p></p>
-                <h3>Name of Listing One</h3>
-            </div>
-            
-            <div class="four columns">
-                <h3>Score = 100</h3>
-            </div>
-            
-            <div class="sixteen columns">
-                <div class="seven columns alpha">
-                    <center><img src="images/sample.jpg" height="250"></center>
-                </div>
-                <div class="nine columns omega">
-                    <h5>Number of bedrooms: 4</h5>
-                    <h5>Number of bathrooms: 1</h5>
-                    <h5>Price: $500</h5>
-                    <h5>Original Post: <a href="http://newyork.craigslist.org/">http://newyork.craigslist.org/</a></h5>
-                    <h5>Description:</h5>
-                    <p>Description of the apartment. Description of the apartment. Description of the apartment. Description of the apartment. Description of the apartment. Description of the apartment. Description of the apartment. Description of the apartment. Description of the apartment. Description of the apartment. Description of the apartment. Description of the apartment. Description of the apartment. </p>
-                    
-                </div>
-            </div>
-            
-            
-            <div class="twelve columns">
-                <p></p>
-                <h3>Name of Listing One</h3>
-            </div>
-            
-            <div class="four columns">
-                <h3>Score = 100</h3>
-            </div>
-            
-            <div class="sixteen columns">
-                <div class="seven columns alpha">
-                    <center><img src="images/sample.jpg" height="250"></center>
-                </div>
-                <div class="nine columns omega">
-                    <h5>Number of bedrooms: 4</h5>
-                    <h5>Number of bathrooms: 1</h5>
-                    <h5>Price: $500</h5>
-                    <h5>Original Post: <a href="http://newyork.craigslist.org/">http://newyork.craigslist.org/</a></h5>
-                    <h5>Description:</h5>
-                    <p>Description of the apartment. Description of the apartment. Description of the apartment. Description of the apartment. Description of the apartment. Description of the apartment. Description of the apartment. Description of the apartment. Description of the apartment. Description of the apartment. Description of the apartment. Description of the apartment. Description of the apartment. </p>
-                    
-                </div>
-            </div>
-
-            
-                        
         </div><!-- container -->
         
         
