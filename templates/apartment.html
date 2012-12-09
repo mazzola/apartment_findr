@@ -18,31 +18,28 @@
                         
                         <!-- CSS
                          ================================================== -->
-                        <link rel="stylesheet" href="stylesheets/base.css">
-                            <link rel="stylesheet" href="stylesheets/skeleton.css">
-                                <link rel="stylesheet" href="stylesheets/layout.css">
-                                    <link rel="stylesheet" href="stylesheets/slider.css">
+						<link rel="stylesheet" href="{{static_url('stylesheets/base.css')}}"/>
+							<link rel="stylesheet" href="{{static_url('stylesheets/skeleton.css')}}"/>
+								<link rel="stylesheet" href="{{static_url('stylesheets/layout.css')}}">
+   									 <link rel="stylesheet" href="{{static_url('stylesheets/slider.css')}}">  
                                         
                                         <!--[if lt IE 9]>
                                          <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
                                          <![endif]-->
                                         
-                                        <!-- Favicons
+                                        <!-- Favicons  
                                          ================================================== -->
-                                        <link rel="shortcut icon" href="images/favicon.ico">
-                                            <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
-                                                <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
-                                                    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
-                                                        
-                                                        </head>
+                                       <link rel="shortcut icon" href="{{static_url('images/favicon.ico')}}">
+											<link rel="apple-touch-icon" href="{{static_url('images/apple-touch-icon.png')}}">
+												<link rel="apple-touch-icon" sizes="72x72" href="{{static_url('images/apple-touch-icon-72x72.png')}}">
+													<link rel="apple-touch-icon" sizes="114x114" href="{{static_url('images/apple-touch-icon-114x114.png')}}">
+											            </head>
     <body>
         
         
         
         <!-- Primary Page Layout
          ================================================== -->
-        
-        <!-- Delete everything in this .container and get started on your own site! -->
         
         <div class="container">
             <div class="sixteen columns">
@@ -93,6 +90,7 @@
             <div class="sixteen columns">
                 <h3>Scores</h3>
                     
+                    
                 {% if 'foodscore' in listing %}
                 <h5>Food score: {{ listing['foodscore'] }}</h5>
                 {% end %}
@@ -105,8 +103,8 @@
                 <h5>Active Life score: {{ listing['activescore'] }}</h5>
                 {% end %}
                 
-                {% if 'restuarantscore' in listing %}
-                <h5>Restuarants score: {{ listing['restaurantscore'] }}</h5>
+                {% if 'restaurantscore' in listing %}
+                <h5>Restaurants score: {{ listing['restaurantscore'] }}</h5>
                 {% end %}
                 
                 {% if 'beautyscore' in listing %}
