@@ -27,7 +27,7 @@
                                          <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
                                          <![endif]-->
                                         
-                                        <!-- Favicons  
+                                        <!-- Favicons
                                          ================================================== -->
                                         <link rel="shortcut icon" href="images/favicon.ico">
                                             <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
@@ -50,52 +50,52 @@
                 <h5>Megan Baker, Najla Elmachtoub, Michael Mazzola</h5>
                 <hr />
             </div>
- 
-        {% for listing in listings %}
-        
-        {% if 'title' in listing %}
-        <div class="twelve columns">
-            <h3>{{ listing['title'] }}</h3>
-        </div>
-        {% end %}
-        
-        {% if 'score' in listing %}
-        <div class="four columns">
-            <h3>Score = {{ listing['score'] }}</h3>
-        </div>
-        {% end %}
-        
-        <div class="sixteen columns">
-            <div class="seven columns alpha">
-                {% if 'pic' in listing %}
-                <center><img src="{{ listing['pic'] }}" height="250"></center>
-                {% end %}
+            
+            {% for listing in listings %}
+            
+            {% if 'title' in listing %}
+            <div class="twelve columns">
+                <h3>{{ listing['title'] }}</h3>
             </div>
-            <div class="nine columns omega">
-                
-                {% if 'bedrooms' in listing %}
-                <h5>Number of bedrooms: {{ listing['bedrooms'] }}</h5>
-                {% end %}
-                
-                {% if 'bathrooms' in listing %}
-                <h5>Number of bathrooms: {{ listing['bathrooms'] }}</h5>
-                {% end %}
-                
-                {% if 'price' in listing %}
-                <h5>Price: {{ listing['price'] }}</h5>
-                {% end %}
-                
-                {% if 'url' in listing %}
-                <h5>Original Post: <a href="{{ listing['url'] }}">{{ listing['url'] }}</a></h5>
-                {% end %}
-                
-                {% if 'description' in listing %}                
-                <h5>Description:</h5>
-                <p>{{ listing['description'] }}</p>
-                {% end %}
-                
+            {% end %}
+            
+            {% if 'score' in listing %}
+            <div class="four columns">
+                <h3>Score = {{ listing['score'] }}</h3>
             </div>
-        </div>
+            {% end %}
+            
+            <div class="sixteen columns">
+                <div class="seven columns alpha">
+                    {% if 'pic' in listing %}
+                    <center><img src="{{ listing['pic'] }}" height="250"></center>
+                    {% end %}
+                </div>
+                <div class="nine columns omega">
+                    
+                    {% if 'bedrooms' in listing %}
+                    <h5>Number of bedrooms: {{ listing['bedrooms'] }}</h5>
+                    {% end %}
+                    
+                    {% if 'bathrooms' in listing %}
+                    <h5>Number of bathrooms: {{ listing['bathrooms'] }}</h5>
+                    {% end %}
+                    
+                    {% if 'price' in listing %}
+                    <h5>Price: {{ listing['price'] }}</h5>
+                    {% end %}
+                    
+                    {% if 'url' in listing %}
+                    <h5>Original Post: <a href="{{ listing['url'] }}">{{ listing['url'] }}</a></h5>
+                    {% end %}
+                    
+                    {% if 'description' in listing %}
+                    <h5>Description:</h5>
+                    <p>{{ listing['description'] }}</p>
+                    {% end %}  
+                    
+                </div>
+            </div>
             
         </div><!-- container -->
         
