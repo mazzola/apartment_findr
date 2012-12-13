@@ -70,14 +70,11 @@
         <div class="sixteen columns">
             <div class="seven columns alpha">
                 {% if 'pic' in listing %}
-                <center><img src="{{ listing['pic'] }}" height="250" itemprop="image"></center>
+                <center><img src="{{ listing['pic'] }}" width="300" itemprop="image"></center>
                 {% end %}
             </div>
             <div class="nine columns omega">
                 
-                {% if 'location' in listing %}
-                <h5 itemprop="geo">Location: {{ listing['location'] }}</h5>
-                {% end %}
                 
                 {% if 'bedrooms' in listing %}
                 <h5>Number of bedrooms: {{ listing['bedrooms'] }}</h5>
@@ -98,6 +95,10 @@
                 {% if 'description' in listing %}                
                 <h5>Description:</h5>
                 <p itemprop="description">{{ listing['description'] }}</p>
+                {% end %}
+                
+                {% if 'location' in listing %}
+                <h5 itemprop="geo" itemscope itemtype="http://schema.org/GeoCoordinates">Location: {{ listing['location']['lat'], listing['location']['lng']}}<meta itemprop="latitude" content="{{listing['location']['lat']}}"><meta itemprop="longitude" content="{{listing['location']['lng']}}"></h5>
                 {% end %}
                 
             </div>
