@@ -151,7 +151,7 @@ class FindrDatabase(object):
         listings = []
         for (inv_score, obj_id) in best_apartments:
             full_apt = self.apartments.find_one({"_id" : obj_id})
-            full_apt['score'] = 1/inv_score
+            full_apt['score'] = round(1/inv_score)
             print full_apt
             listings.append(full_apt)
         return listings
