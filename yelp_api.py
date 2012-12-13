@@ -13,10 +13,10 @@ url_params = {}
 url_params['radius_filter'] = 500
 url_params['sort'] = 2 
 
-consumer_key = 'WoH7PFlWIbmnKuvGdMaNhw'
-consumer_secret = 'GNCVbv7iijc2WbWp3JqA8p0VIok'
-token = 'STu6shoYNAenZEs_Dj0mPGfgU0dqNEYy'
-token_secret = 'RK4hMSMeWeYCjdyf_rIGt8xRlDU'
+consumer_key = 'vFqTubEQcCvQfVTXmhVVnQ'
+consumer_secret = 'fikykIJZ5ubg5cnVaHbfZOLZMyc'
+token = 'YNkG-NCZfnKGTwSO8rHm0X6wOjwMCQhb'
+token_secret = 'Fth1yU-TfCdy6aPpWMHQpWvsuGc'
 
 #consumer_key = "PgP7oMp73RpxLvnyPeB8rQ"
 #consumer_secret	= "fWFixrQzy1bMkL3I7YL2FCv-63A"
@@ -71,6 +71,7 @@ def get_yelp_scores(apt_id):
         url_params['category_filter'] = category
         response = request('api.yelp.com', '/v2/search', url_params, consumer_key, consumer_secret, token, token_secret)
         ratings_tot = 0
+        print response
         for business in response['businesses']:
             business['_id'] = business['id'] #This lets MongoDB use Yelp's ID for the internal database ID, makes it easier to deal with duplicates
             nearby_businesses.append(business['id'])

@@ -45,7 +45,8 @@
         
         <div class="container">
             <div class="sixteen columns">
-                <h1 ="remove-bottom" style="margin-top: 40px">New York City Apartment Finder</h1>
+              <div class="three columns"><a href="/"><img src="{{static_url('images/newyorkskyline.png')}}"/></a></div>
+              <h1 ="remove-bottom" style="margin-top: 40px">New York City Apartment Finder</h1>
                 <h5>Megan Baker, Najla Elmachtoub, Michael Mazzola</h5>
                 <hr />
             </div>
@@ -73,7 +74,7 @@
                 <h5>Nearby apartments:</h5>
                 <ul>
                 {% for apartment in business['nearby_apts'] %}
-                     <a href="localhost:8888/apartment/{{str(apartment)}}" itemscope itemtype="http://schema.org/Residence"><li itemprop="url">localhost:8888/apartment/{{str(apartment)}}</li></a>
+                     <a href="/apartment/{{str(apartment)}}" itemscope itemtype="http://schema.org/Residence"><li itemprop="url">localhost:8888/apartment/{{str(apartment)}}</li></a>
                    
                 {% end %}
                 </ul>

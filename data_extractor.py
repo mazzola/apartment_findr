@@ -14,7 +14,7 @@ google_geolocator_url = "https://maps.googleapis.com/maps/api/geocode/json?senso
 # Extracts data from the 3taps api into an in memory dict
 def extract_3taps_data():
     # TODO change this to production/search URL
-    response = urllib2.urlopen(three_taps_test_url)
+    response = urllib2.urlopen(three_taps_search_url)
     print "Getting data from 3taps..."
     response_dict = json.loads(response.read())
     raw_apartment_dict = response_dict["results"]
@@ -32,8 +32,9 @@ def extract_3taps_data():
         refined_apartment.update({'price':price})
         post_url = raw_apartment['sourceUrl']
         refined_apartment.update({'url':post_url})
-        description = raw_apartment['body']
-        refined_apartment.update({'description':description})
+        if 'body' in raw_apartment:
+            description = raw_apartment['body']
+            refined_apartment.update({'description':description})
         if (raw_apartment['hasImage']):
             picture = raw_apartment['images'][0]['full']
             refined_apartment.update({'pic':picture})

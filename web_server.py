@@ -140,10 +140,11 @@ class FindrDatabase(object):
     	weight_sum = sum([int(x) for x in weights])
         apartments = self.apartments.find()
         for apartment in apartments:
-        	cat_scores = apartment['cat_scores']
-        	#self.apartments.update({"_id": apartment['_id']}, {"$set": {"cat_scores": cat_scores}})
-        	total_score = sum(a*b/weight_sum for a,b in zip(cat_scores,weights) )
-        	apt_heap.append((1./total_score, apartment['_id']))
+            if 'cat_scores' in apartment:
+                cat_scores = apartment['cat_scores']
+                #self.apartments.update({"_id": apartment['_id']}, {"$set": {"cat_scores": cat_scores}})
+                total_score = sum(a*b/weight_sum for a,b in zip(cat_scores,weights) )
+                apt_heap.append((1./total_score, apartment['_id']))
         # Calculate score for every apartment using wieghted average
         heapify(apt_heap)
         for i in range(5):
