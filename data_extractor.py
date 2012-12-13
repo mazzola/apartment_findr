@@ -4,7 +4,7 @@
 import pymongo
 import urllib2
 import json
-#import yelp_api
+import yelp_api
 from pymongo import MongoClient
 
 three_taps_search_url = "http://3taps.net/search?category=RHFR&regionCode=USA-NYM-MAN&authToken=3231dd4e4ef940efbe719e30d2481c42&annotations={source_map_google:*%20AND%20source_loc:newyork}"
@@ -14,7 +14,7 @@ google_geolocator_url = "https://maps.googleapis.com/maps/api/geocode/json?senso
 # Extracts data from the 3taps api into an in memory dict
 def extract_3taps_data():
     # TODO change this to production/search URL
-    response = urllib2.urlopen(three_taps_test_url)
+    response = urllib2.urlopen(three_taps_search_url)
     print "Getting data from 3taps..."
     response_dict = json.loads(response.read())
     raw_apartment_dict = response_dict["results"]
@@ -32,8 +32,9 @@ def extract_3taps_data():
         refined_apartment.update({'price':price})
         post_url = raw_apartment['sourceUrl']
         refined_apartment.update({'url':post_url})
-        description = raw_apartment['body']
-        refined_apartment.update({'description':description})
+        if 'body' in raw_apartment:
+            description = raw_apartment['body']
+            refined_apartment.update({'description':description})
         if (raw_apartment['hasImage']):
             picture = raw_apartment['images'][0]['full']
             refined_apartment.update({'pic':picture})
@@ -47,24 +48,28 @@ def extract_3taps_data():
 
         print "Added new apartment: %s\n" % refined_apartment
         refined_apartment_dict.append(refined_apartment)
-
+    return refined_apartment_dict
 
 # Takes an apartment dict and a business dictonary and inserts all the
 # entries into a mongodb
-def import_into_db(apartment_dict, businesses_dict, db):
+def import_into_db(apartment_dict, db):
     print "Storing data in mongodb"
     apartments = db.apartments
     apartments.insert(apartment_dict)
 
-    businesses = db.businesses
-    businesses.insert(businesses_dict)
-    print "Done creating database!"
-
+def extract_yelp_data(db):
+    apartments = db.apartments.find()
+    for apartment in apartments:
+        print apartment['_id']
+        scores_and_nearby = yelp_api.get_yelp_scores(apartment['_id'])
+        db.apartments.update({"_id": apartment['_id']}, {"$set": {"cat_scores": scores_and_nearby[0]}})
+        db.apartments.update({"_id": apartment['_id']}, {"$set": {"businesses_nearby": scores_and_nearby[1]}})
 
 def main():
-    #connection = MongoClient()
-    #db = connection.findr_database
-    extract_3taps_data()
+    connection = MongoClient()
+    db = connection.findr_database
+    #import_into_db(extract_3taps_data(), db)
+    extract_yelp_data(db)
 
 if __name__ == '__main__':
 	main()

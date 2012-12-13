@@ -46,7 +46,8 @@
         
         <div class="container">
             <div class="sixteen columns">
-                <h1 ="remove-bottom" style="margin-top: 40px">New York City Apartment Finder</h1>
+              <div class="three columns"><a href="/"><img src="{{static_url('images/newyorkskyline.png')}}"/></a></div>
+              <h1 ="remove-bottom" style="margin-top: 40px">New York City Apartment Finder</h1>
                 <h5>Megan Baker, Najla Elmachtoub, Michael Mazzola</h5>
                 <hr />
             </div>
@@ -90,6 +91,10 @@
                 
                 {% if 'url' in listing %}
                 <h5>Original Post: <a href="{{ listing['url'] }}" itemprop="url">{{ listing['url'] }}</a></h5>
+                {% end %}
+                
+                {% if 'id' in listing %}
+                <h5>More information: <a href="{{"/apartment/" + listing['id'] }}">localhost:8888/apartment/{{ listing['id'] }}</a></h5>
                 {% end %}
                 
                 {% if 'description' in listing %}                
