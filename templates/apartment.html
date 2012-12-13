@@ -105,37 +105,21 @@
                 <h3>Scores</h3>
                     
                     
-                {% if 'foodscore' in listing %}
-                <h5>Food score: {{ listing['scores'][0] }}</h5>
-                {% end %}
+                <h5>Food score: {{ round(scores[0]) }}</h5>
                 
-                {% if 'shoppingscore' in listing %}
-                <h5>Shopping score: {{ listing['scores'][1] }}</h5>
-                {% end %}
+                <h5>Shopping score: {{ round(scores[1]) }}</h5>
                 
-                {% if 'activescore' in listing %}
-                <h5>Active Life score: {{ listing['scores'][2] }}</h5>
-                {% end %}
+                <h5>Active Life score: {{ round(scores[2]) }}</h5>
                 
-                {% if 'restaurantscore' in listing %}
-                <h5>Restaurants score: {{ listing['scores'][3] }}</h5>
-                {% end %}
+                <h5>Restaurants score: {{ round(scores[3]) }}</h5>
                 
-                {% if 'beautyscore' in listing %}
-                <h5>Beauty &amp; Spas score: {{ listing['scores'][4] }}</h5>
-                {% end %}
+                <h5>Beauty &amp; Spas score: {{ round(scores[4]) }}</h5>
                 
-                {% if 'nightlifescore' in listing %}
-                <h5>Nightlife score: {{ listing['scores'][5] }}</h5>
-                {% end %}
+                <h5>Nightlife score: {{ round(scores[5]) }}</h5>
                 
-                {% if 'educationscore' in listing %}
-                <h5>Education score: {{ listing['scores'][6] }}</h5>
-                {% end %}
+                <h5>Education score: {{ round(scores[6]) }}</h5>
                 
-                {% if 'artsscore' in listing %}
-                <h5>Arts &amp; Entertainment score: {{ listing['scores'][7] }}</h5>
-                {% end %}
+                <h5>Arts &amp; Entertainment score: {{ round(scores[7]) }}</h5>
                 
             </div>
             
