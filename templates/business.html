@@ -69,7 +69,7 @@
                 <ul>
                 {% for apartment in apartments %}
                     {% if 'url' in apartment %}
-                    <li>{{ apartment['url'] }}</li>
+                    <a href="{{apartment['url']}}"><li>{{ apartment['url'] }}</li></a>
                     {% end %}
                 {% end %}
                 </ul>
