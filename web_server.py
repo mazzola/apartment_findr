@@ -108,6 +108,7 @@ class BusinessHandler(BaseHandler):
     	'bedrooms':4,'price':5,'bathrooms':6,'url':'http://ithaca.craigslist.org/apa/3466893060.html','VIII':8,'description':9}]
 =======
         business = self.db.get_business(id)
+    	business = self.db.get_business(id)
         # TODO format nearby apartments
         apartments = []
 >>>>>>> c5a38062fbb16c41d67cd9733bd87ca3d52d19cf

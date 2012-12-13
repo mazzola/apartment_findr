@@ -76,6 +76,9 @@
                     {% if 'url' in apartment %}
                     <a href="{{apartment['url']}}" itemscope itemtype="http://schema.org/Residence"><li itemprop="url">{{ apartment['url'] }}</li></a>
                     {% end %}
+                {% for apartment in business['nearby_apts'] %}
+                     <a href="{{apartment}}" itemscope itemtype="http://schema.org/Residence"><li itemprop="url">localhost:8888/apartment/{{str(apartment)}}</li></a>
+                   
                 {% end %}
                 </ul>
                                 
