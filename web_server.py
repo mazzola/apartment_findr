@@ -99,9 +99,10 @@ class ApartmentHandler(BaseHandler):
         
 class BusinessHandler(BaseHandler):
     def get(self, id, format):
+    	print id
         # TODO replace with db call like this
         business = self.db.get_business(id)
-    	business = {'name':business['_id'], 'type':'food', 'address':'401 College Ave, Ithaca, NY'}
+    	business = {'name':business['_id'], 'type':business['categories'][0], 'address':business['display_address']}
     	apartments = [{'title':1,'score':2,'pic':'http://images.craigslist.org/3G63F63H65Gd5E75M7cc97a6776566c861baf.jpg',
     	'bedrooms':4,'price':5,'bathrooms':6,'url':'http://ithaca.craigslist.org/apa/3466893060.html','VIII':8,'description':9}]
 
