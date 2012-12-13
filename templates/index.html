@@ -32,7 +32,27 @@
 	<link rel="shortcut icon" href="{{static_url('images/favicon.ico')}}">
 	<link rel="apple-touch-icon" href="{{static_url('images/apple-touch-icon.png')}}">
 	<link rel="apple-touch-icon" sizes="72x72" href="{{static_url('images/apple-touch-icon-72x72.png')}}">
-	<link rel="apple-touch-icon" sizes="114x114" href="{{static_url('images/apple-touch-icon-114x114.png')}}">
+  <link rel="apple-touch-icon" sizes="114x114" href="{{static_url('images/apple-touch-icon-114x114.png')}}">
+
+  <!-- Javascript
+  ================================================= -->
+  <script type="text/javascript" language="Javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+  <script>
+    function getResults() {
+      var url = "results?";
+      var sliders = $(".bar");
+      var food_value = sliders[0].value;
+      var shopping_value = sliders[1].value;
+      var nightlife_value = sliders[2].value;
+      var active_value = sliders[3].value;
+      var education_value = sliders[4].value;
+      var restaurants_value = sliders[5].value;
+      var arts_value = sliders[6].value;
+      var beauty_value = sliders[7].value;
+      url = url + "food=" + food_value + "&shopping=" + shopping_value + "&nightlife=" + nightlife_value + "&active=" + active_value + "&education=" + education_value + "&restaurants=" + restaurants_value + "&arts=" + arts_value + "&beauty=" + beauty_value;
+      window.location = url;
+    }
+  </script>
 
 </head>
 <body>
@@ -54,7 +74,7 @@
             <h2>What's important to you?</h2>
         </div>
         <div class="five columns">
-            <center><button><font size="4">Find an apartment</font></button></center>
+          <center><button onclick="getResults()"><font size="4">Find an apartment</font></button></center>
         </div>
             
 		<div class="eight columns">
