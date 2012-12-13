@@ -36,7 +36,7 @@ class AptService(tornado.web.Application):
             (r"/static/(.*)", tornado.web.StaticFileHandler, {"path": "/templates/"}),
             (r"/results", ResultsHandler),
             (r"/apartment/([0-9a-z]+)(\..+)?", ApartmentHandler),
-            (r"/business", BusinessHandler)
+            (r"/business/([0-9a-z]+)(\..+)?", BusinessHandler)
         ]
         settings = dict(
             template_path=os.path.join(os.path.dirname(__file__), "templates"),
@@ -79,7 +79,7 @@ class ResultsHandler(BaseHandler):
     	weights = []
     	for c in['food', 'shopping', 'nightlife', 'active', 'education', 'arts', 'restaurants', 'beauty']:
     		weights.append(self.get_arguments(c))
-    	
+    	#listings = self.db.search(weights)
     	listings = [{'title':1,'score':2,'pic':'http://images.craigslist.org/3G63F63H65Gd5E75M7cc97a6776566c861baf.jpg','bedrooms':4,'price':5,'bathrooms':6,'url':'http://ithaca.craigslist.org/apa/3466893060.html','VIII':8,'description':9}]
         self.render("results.html", listings=listings)
         
@@ -95,11 +95,17 @@ class ApartmentHandler(BaseHandler):
             self.render("apartment.html", listing=listing)
         
 class BusinessHandler(BaseHandler):
-    def get(self):
+    def get(self, id, format):
+        # TODO replace with db call like this
+        #business = self.db.get_business(id)
     	business = {'name':'Stella\'s', 'type':'food', 'address':'401 College Ave, Ithaca, NY'}
     	apartments = [{'title':1,'score':2,'pic':'http://images.craigslist.org/3G63F63H65Gd5E75M7cc97a6776566c861baf.jpg',
     	'bedrooms':4,'price':5,'bathrooms':6,'url':'http://ithaca.craigslist.org/apa/3466893060.html','VIII':8,'description':9}]
-        self.render("business.html", business = business, apartments = apartments)
+
+        if format == ".json":
+            self.write
+        else:
+            self.render("business.html", business = business, apartments = apartments)
 
 ## Database Controller
 class FindrDatabase(object):
@@ -117,9 +123,12 @@ class FindrDatabase(object):
         return apartment
 
     def get_business(self, id):
-        return self.businesses.find_one({"_id" : ObjectId(id)})
+        business = self.businesses.find_one({"_id" : ObjectId(id)})
+        if businesses is None:
+            raise tornado.web.HTTPError(404)
+        return apartment
 
-    def search(self, food, shopping, nightlife, active, education, restaurants, arts, beauty):
+    def search(self, weights):
         apartments = self.apartments.find()
         for apartment in apartments:
             pass
