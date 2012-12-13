@@ -1,0 +1,14 @@
+## Database setup ##
+install mongodb
+run mongod in the terminal
+
+While in the main project directory run:
+mongorestore dump/findr_database/
+
+This should populate a new database called findr_database.
+
+## Running the webserver ##
+Install the necessary python libraries
+
+To start the webserver:
+python web_server.py
