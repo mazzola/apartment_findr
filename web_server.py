@@ -80,7 +80,7 @@ class HomeHandler(BaseHandler):
 class ResultsHandler(BaseHandler):
     def get(self):
     	weights = []
-    	for c in['food']: #, 'shopping', 'nightlife', 'active', 'education', 'arts', 'restaurants', 'beauty']:
+    	for c in['food', 'shopping', 'nightlife', 'active', 'education', 'arts', 'restaurants', 'beauty']:
     		weights.append(int(self.get_arguments(c)[0]))
     	listings = self.db.search(weights)
     	#listings = [{'title':1,'score':2,'pic':'http://images.craigslist.org/3G63F63H65Gd5E75M7cc97a6776566c861baf.jpg','bedrooms':4,'price':5,'bathrooms':6,'url':'http://ithaca.craigslist.org/apa/3466893060.html','VIII':8,'description':9}]
@@ -100,8 +100,8 @@ class ApartmentHandler(BaseHandler):
 class BusinessHandler(BaseHandler):
     def get(self, id, format):
         # TODO replace with db call like this
-        #business = self.db.get_business(id)
-    	business = {'name':'Stella\'s', 'type':'food', 'address':'401 College Ave, Ithaca, NY'}
+        business = self.db.get_business(id)
+    	business = {'name':business['_id'], 'type':'food', 'address':'401 College Ave, Ithaca, NY'}
     	apartments = [{'title':1,'score':2,'pic':'http://images.craigslist.org/3G63F63H65Gd5E75M7cc97a6776566c861baf.jpg',
     	'bedrooms':4,'price':5,'bathrooms':6,'url':'http://ithaca.craigslist.org/apa/3466893060.html','VIII':8,'description':9}]
 
@@ -141,13 +141,11 @@ class FindrDatabase(object):
     	weight_sum = sum([int(x) for x in weights])
         apartments = self.apartments.find()
         for apartment in apartments:
-        	print apartment['_id']
         	cat_scores = yelp_api.get_yelp_scores(apartment['_id'])
         	self.apartments.update({"_id": apartment['_id']}, {"$set": {"cat_scores": cat_scores}})
         	total_score = sum(a*b/weight_sum for a,b in zip(cat_scores,weights) )
         	print total_score
         	apt_heap.append((1./total_score, apartment['_id']))
-        print self.apartments.find_one()
         # Calculate score for every apartment using wieghted average
         heapify(apt_heap)
         for i in range(5):
