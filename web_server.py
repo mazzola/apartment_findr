@@ -100,7 +100,7 @@ class ApartmentHandler(BaseHandler):
         
 class BusinessHandler(BaseHandler):
     def get(self, id, format):
-        business = self.db.get_business(id)
+    	business = self.db.get_business(id)
         # TODO format nearby apartments
         apartments = []
 
