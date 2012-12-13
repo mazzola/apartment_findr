@@ -53,9 +53,11 @@
  
         {% for listing in listings %}
         
+        <div itemscope itemtype="http://schema.org/Residence">
+
         {% if 'title' in listing %}
         <div class="twelve columns">
-            <h3>{{ listing['title'] }}</h3>
+            <h3 itemprop="name">{{ listing['title'] }}</h3>
         </div>
         {% end %}
         
@@ -68,10 +70,14 @@
         <div class="sixteen columns">
             <div class="seven columns alpha">
                 {% if 'pic' in listing %}
-                <center><img src="{{ listing['pic'] }}" height="250"></center>
+                <center><img src="{{ listing['pic'] }}" height="250" itemprop="image"></center>
                 {% end %}
             </div>
             <div class="nine columns omega">
+                
+                {% if 'location' in listing %}
+                <h5 itemprop="geo">Location: {{ listing['location'] }}</h5>
+                {% end %}
                 
                 {% if 'bedrooms' in listing %}
                 <h5>Number of bedrooms: {{ listing['bedrooms'] }}</h5>
@@ -86,19 +92,20 @@
                 {% end %}
                 
                 {% if 'url' in listing %}
-                <h5>Original Post: <a href="{{ listing['url'] }}">{{ listing['url'] }}</a></h5>
+                <h5>Original Post: <a href="{{ listing['url'] }}" itemprop="url">{{ listing['url'] }}</a></h5>
                 {% end %}
                 
                 {% if 'description' in listing %}                
                 <h5>Description:</h5>
-                <p>{{ listing['description'] }}</p>
+                <p itemprop="description">{{ listing['description'] }}</p>
                 {% end %}
                 
             </div>
         </div>
             
             {% end %}
-
+        
+        </div>
             
         </div><!-- container -->
         
