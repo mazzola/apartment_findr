@@ -67,10 +67,6 @@
                 </div>
                 <div class="nine columns omega">
                     
-                    {% if 'location' in listing %}
-                    <h5 itemprop="geo">Location: {{ listing['location'] }}</h5>
-                    {% end %}
-                    
                     {% if 'bedrooms' in listing %}
                     <h5>Number of bedrooms: {{ listing['bedrooms'] }}</h5>
                     {% end %}
@@ -91,6 +87,11 @@
                     <h5>Description:</h5>
                     <p itemprop="description">{{ listing['description'] }}</p>
                     {% end %}  
+                    
+                    {% if 'location' in listing %}
+                    <h5 itemprop="geo" itemscope itemtype="http://schema.org/GeoCoordinates">Location: {{ listing['location']['lat'], listing['location']['lng']}}<meta itemprop="latitude" content="{{listing['location']['lat']}}"><meta itemprop="longitude" content="{{listing['location']['lng']}}"></h5>
+                    {% end %}
+                    
                     
                 </div>
             </div>
@@ -137,7 +138,7 @@
             <div class="eight columns">
                 <h3>Food</h3>
                 
-                {% for business in food_businesses}
+                {% for business in food_businesses %}
                     <ul>
                     {% if 'name' in business %}
                         <li><a href="{{"localhost:8888/business/" + business['id']}}" itemscope itemtype="http://schema.org/LocalBusiness">{{business['name']}}</a></li>
@@ -150,7 +151,7 @@
             <div class="eight columns">
                 <h3>Shopping</h3>
                 
-                {% for business in shopping_businesses}
+                {% for business in shopping_businesses %}
                 <ul>
                     {% if 'name' in business %}
                     <li><a href="{{"localhost:8888/business/" + business['id']}}" itemscope itemtype="http://schema.org/LocalBusiness">{{business['name']}}</a></li>
@@ -163,7 +164,7 @@
             <div class="eight columns">
                 <h3>Nightlife</h3>
                 
-                {% for business in nightlife_businesses}
+                {% for business in nightlife_businesses %}
                 <ul>
                     {% if 'name' in business %}
                     <li><a href="{{"localhost:8888/business/" + business['id']}}" itemscope itemtype="http://schema.org/LocalBusiness">{{business['name']}}</a></li>
@@ -176,7 +177,7 @@
             <div class="eight columns">
                 <h3>Active Life</h3>
                 
-                {% for business in activelife_businesses}
+                {% for business in activelife_businesses %}
                 <ul>
                     {% if 'name' in business %}
                     <li><a href="{{"localhost:8888/business/" + business['id']}}" itemscope itemtype="http://schema.org/LocalBusiness">{{business['name']}}</a></li>
@@ -189,7 +190,7 @@
             <div class="eight columns">
                 <h3>Education</h3>
                 
-                {% for business in education_businesses}
+                {% for business in education_businesses %}
                 <ul>
                     {% if 'name' in business %}
                     <li><a href="{{"localhost:8888/business/" + business['id']}}" itemscope itemtype="http://schema.org/LocalBusiness">{{business['name']}}</a></li>
@@ -202,7 +203,7 @@
             <div class="eight columns">
                 <h3>Restaurants</h3>
                 
-                {% for business in restaurants_businesses}
+                {% for business in restaurants_businesses %}
                 <ul>
                     {% if 'name' in business %}
                     <li><a href="{{"localhost:8888/business/" + business['id']}}" itemscope itemtype="http://schema.org/LocalBusiness">{{business['name']}}</a></li>
@@ -215,7 +216,7 @@
             <div class="eight columns">
                 <h3>Arts &amp; Entertainment</h3>
                 
-                {% for business in arts_businesses}
+                {% for business in arts_businesses %}
                 <ul>
                     {% if 'name' in business %}
                     <li><a href="{{"localhost:8888/business/" + business['id']}}" itemscope itemtype="http://schema.org/LocalBusiness">{{business['name']}}</a></li>
@@ -228,7 +229,7 @@
             <div class="eight columns">
                 <h3>Beauty &amp; Spas</h3>
                 
-                {% for business in beauty_businesses}
+                {% for business in beauty_businesses %}
                 <ul>
                     {% if 'name' in business %}
                     <li><a href="{{"localhost:8888/business/" + business['id']}}" itemscope itemtype="http://schema.org/LocalBusiness">{{business['name']}}</a></li>

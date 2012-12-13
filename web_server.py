@@ -92,7 +92,7 @@ class ApartmentHandler(BaseHandler):
         if format == ".json":
             self.write(dict(apartment=listing))
         elif format is None:
-            self.render("apartment.html", listing=listing)
+            self.render("apartment.html", listing=listing, food_businesses=[], shopping_businesses=[], nightlife_businesses=[], activelife_businesses=[], education_businesses=[], restaurants_businesses=[], arts_businesses=[], beauty_businesses=[])
         
 class BusinessHandler(BaseHandler):
     def get(self, id, format):
