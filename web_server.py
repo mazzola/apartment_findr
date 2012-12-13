@@ -102,13 +102,11 @@ class ApartmentHandler(BaseHandler):
 class BusinessHandler(BaseHandler):
     def get(self, id, format):
     	business = self.db.get_business(id)
-        # TODO format nearby apartments
-        apartments = []
-
         if format == ".json":
+            del business['nearby_apts']
             self.write(dict(business=business))
         else:
-            self.render("business.html", business = business, apartments = apartments)
+            self.render("business.html", business = business)
 
 ## Database Controller
 class FindrDatabase(object):
