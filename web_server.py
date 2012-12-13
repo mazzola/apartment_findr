@@ -90,7 +90,8 @@ class ApartmentHandler(BaseHandler):
     	#	'bedrooms':2,'price':'$700','bathrooms':1,'url':'http://ithaca.craigslist.org/apa/3466893060.html','VIII':8, 
     	#	'description':'950 sq feet of pure, unadulterated college', 'foodscore':90, 'shoppingscore':93,'activescore':91,'retaurantscore':92,'beautyscore':84,'nightlifescore':95,'educationscore':87,'artsscore':82,}
         if format == ".json":
-            self.write(dict(listing=dumps(listing)))
+            del listing['_id']
+            self.write(dict(apartment=listing))
         elif format is None:
             self.render("apartment.html", listing=listing)
         
@@ -103,7 +104,7 @@ class BusinessHandler(BaseHandler):
     	'bedrooms':4,'price':5,'bathrooms':6,'url':'http://ithaca.craigslist.org/apa/3466893060.html','VIII':8,'description':9}]
 
         if format == ".json":
-            self.write
+            self.write(dict(business=business))
         else:
             self.render("business.html", business = business, apartments = apartments)
 
