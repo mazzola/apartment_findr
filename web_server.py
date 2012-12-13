@@ -23,6 +23,9 @@ from bson.objectid import ObjectId
 from bson.json_util import dumps
 from tornado.options import define, options
 
+import yelp_api
+from heapq import heappush, heappop, heapify
+
 define("port", default=8888, help="run on the given port", type=int)
 
 
@@ -77,10 +80,10 @@ class HomeHandler(BaseHandler):
 class ResultsHandler(BaseHandler):
     def get(self):
     	weights = []
-    	for c in['food', 'shopping', 'nightlife', 'active', 'education', 'arts', 'restaurants', 'beauty']:
-    		weights.append(self.get_arguments(c))
-    	#listings = self.db.search(weights)
-    	listings = [{'title':1,'score':2,'pic':'http://images.craigslist.org/3G63F63H65Gd5E75M7cc97a6776566c861baf.jpg','bedrooms':4,'price':5,'bathrooms':6,'url':'http://ithaca.craigslist.org/apa/3466893060.html','VIII':8,'description':9}]
+    	for c in['food']: #, 'shopping', 'nightlife', 'active', 'education', 'arts', 'restaurants', 'beauty']:
+    		weights.append(int(self.get_arguments(c)[0]))
+    	listings = self.db.search(weights)
+    	#listings = [{'title':1,'score':2,'pic':'http://images.craigslist.org/3G63F63H65Gd5E75M7cc97a6776566c861baf.jpg','bedrooms':4,'price':5,'bathrooms':6,'url':'http://ithaca.craigslist.org/apa/3466893060.html','VIII':8,'description':9}]
         self.render("results.html", listings=listings)
         
 class ApartmentHandler(BaseHandler):
@@ -130,13 +133,24 @@ class FindrDatabase(object):
         return apartment
 
     def search(self, weights):
+    	apt_heap  = []
+    	best_apartments = []
+    	weight_sum = sum([int(x) for x in weights])
         apartments = self.apartments.find()
         for apartment in apartments:
-            pass
-            # Calculate score for every apartment using wieghted average
-
+        	print apartment['_id']
+        	cat_scores = yelp_api.get_yelp_scores(apartment['_id'])
+        	self.apartments.update({"_id": apartment['_id']}, {"$set": {"cat_scores": cat_scores}})
+        	total_score = sum(a*b/weight_sum for a,b in zip(cat_scores,weights) )
+        	print total_score
+        	apt_heap.append((1./total_score, apartment['_id']))
+        print self.apartments.find_one()
+        # Calculate score for every apartment using wieghted average
+        heapify(apt_heap)
+        for i in range(5):
+        	best_apartments.append(heappop(apt_heap))
         # Search through all the apartments for the top 10
-        best_apartments = []
+        print best_apartments
         return best_apartments
 
 ### Script entry point ###
