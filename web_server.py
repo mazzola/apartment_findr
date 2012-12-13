@@ -28,8 +28,8 @@ define("port", default=8888, help="run on the given port", type=int)
 
 ### Movie Web Service implementation ###
 
-class MovieService(tornado.web.Application):
-    """The Movie Service Web Application"""
+class AptService(tornado.web.Application):
+    """The apartment Service Web Application"""
     def __init__(self, db):
         handlers = [
             (r"/", HomeHandler),
@@ -76,7 +76,11 @@ class HomeHandler(BaseHandler):
         
 class ResultsHandler(BaseHandler):
     def get(self):
-    	listings = [{'title':'Best Apartment EVAR','score':2,'pic':'http://images.craigslist.org/3G63F63H65Gd5E75M7cc97a6776566c861baf.jpg','bedrooms':4,'price':5,'bathrooms':6,'url':'http://ithaca.craigslist.org/apa/3466893060.html','VIII':8,'description':9}]
+    	weights = []
+    	for c in['food', 'shopping', 'nightlife', 'active', 'education', 'arts', 'restaurants', 'beauty']:
+    		weights.append(self.get_arguments(c))
+    	
+    	listings = [{'title':1,'score':2,'pic':'http://images.craigslist.org/3G63F63H65Gd5E75M7cc97a6776566c861baf.jpg','bedrooms':4,'price':5,'bathrooms':6,'url':'http://ithaca.craigslist.org/apa/3466893060.html','VIII':8,'description':9}]
         self.render("results.html", listings=listings)
         
 class ApartmentHandler(BaseHandler):
@@ -132,10 +136,10 @@ def main():
     # Set up the database
     db = FindrDatabase()
     # Set up the Web application, pass the database
-    movie_webservice = MovieService(db)
+    apt_webservice = AptService(db)
     # Set up HTTP server, pass Web application
     try:
-        http_server = tornado.httpserver.HTTPServer(movie_webservice)
+        http_server = tornado.httpserver.HTTPServer(apt_webservice)
         http_server.listen(options.port)
         tornado.ioloop.IOLoop.instance().start()
     except KeyboardInterrupt:
