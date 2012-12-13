@@ -8,6 +8,7 @@ Score calculation, read functions for apartments and businesses, do the home han
 import os
 import codecs
 import json
+import bson
 import re
 import urlparse
 import pymongo
@@ -19,7 +20,7 @@ import tornado.options
 import tornado.web
 
 
-
+from bson.json_util import dumps
 from tornado.options import define, options
 
 define("port", default=8888, help="run on the given port", type=int)
@@ -85,10 +86,8 @@ class ApartmentHandler(BaseHandler):
     	#	'bedrooms':2,'price':'$700','bathrooms':1,'url':'http://ithaca.craigslist.org/apa/3466893060.html','VIII':8, 
     	#	'description':'950 sq feet of pure, unadulterated college', 'foodscore':90, 'shoppingscore':93,'activescore':91,'retaurantscore':92,'beautyscore':84,'nightlifescore':95,'educationscore':87,'artsscore':82,}
         if format == ".json":
-            print listing
-            self.write(dict(listing=listing))
+            self.write(dict(listing=dumps(listing)))
         elif format is None:
-            print "Rendering html..."
             self.render("apartment.html", listing=listing)
         
 class BusinessHandler(BaseHandler):
