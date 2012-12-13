@@ -34,7 +34,7 @@ class MovieService(tornado.web.Application):
             (r"/", HomeHandler),
             (r"/static/(.*)", tornado.web.StaticFileHandler, {"path": "/templates/"}),
             (r"/results", ResultsHandler),
-            (r"/apartment", ApartmentHandler),
+            (r"/apartment(\..+)?", ApartmentHandler),
             (r"/business", BusinessHandler)
         ]
         settings = dict(
@@ -79,11 +79,17 @@ class ResultsHandler(BaseHandler):
         self.render("results.html", listings=listings)
         
 class ApartmentHandler(BaseHandler):
-    def get(self):
-    	listing = {'title':'2BD/1BA','score':87,'pic':'http://images.craigslist.org/3G63F63H65Gd5E75M7cc97a6776566c861baf.jpg',
-    		'bedrooms':2,'price':'$700','bathrooms':1,'url':'http://ithaca.craigslist.org/apa/3466893060.html','VIII':8, 
-    		'description':'950 sq feet of pure, unadulterated college', 'foodscore':90, 'shoppingscore':93,'activescore':91,'retaurantscore':92,'beautyscore':84,'nightlifescore':95,'educationscore':87,'artsscore':82,}
-        self.render("apartment.html", listing=listing)
+    def get(self, format):
+        listing = self.db.apartments.find_one()
+    	#listing = {'title':'2BD/1BA','score':87,'pic':'http://images.craigslist.org/3G63F63H65Gd5E75M7cc97a6776566c861baf.jpg',
+    	#	'bedrooms':2,'price':'$700','bathrooms':1,'url':'http://ithaca.craigslist.org/apa/3466893060.html','VIII':8, 
+    	#	'description':'950 sq feet of pure, unadulterated college', 'foodscore':90, 'shoppingscore':93,'activescore':91,'retaurantscore':92,'beautyscore':84,'nightlifescore':95,'educationscore':87,'artsscore':82,}
+        if format == ".json":
+            print listing
+            self.write(dict(listing=listing))
+        elif format is None:
+            print "Rendering html..."
+            self.render("apartment.html", listing=listing)
         
 class BusinessHandler(BaseHandler):
     def get(self):
@@ -99,7 +105,7 @@ def main():
     tornado.options.parse_command_line()
     # Set up the database
     conn = MongoClient()
-    db = conn.business_database
+    db = conn.findr_database
     # Set up the Web application, pass the database
     movie_webservice = MovieService(db)
     # Set up HTTP server, pass Web application
