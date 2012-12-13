@@ -106,143 +106,39 @@
                     
                     
                 {% if 'foodscore' in listing %}
-                <h5>Food score: {{ listing['foodscore'] }}</h5>
+                <h5>Food score: {{ listing['scores'][0] }}</h5>
                 {% end %}
                 
                 {% if 'shoppingscore' in listing %}
-                <h5>Shopping score: {{ listing['shoppingscore'] }}</h5>
+                <h5>Shopping score: {{ listing['scores'][1] }}</h5>
                 {% end %}
                 
                 {% if 'activescore' in listing %}
-                <h5>Active Life score: {{ listing['activescore'] }}</h5>
+                <h5>Active Life score: {{ listing['scores'][2] }}</h5>
                 {% end %}
                 
                 {% if 'restaurantscore' in listing %}
-                <h5>Restaurants score: {{ listing['restaurantscore'] }}</h5>
+                <h5>Restaurants score: {{ listing['scores'][3] }}</h5>
                 {% end %}
                 
                 {% if 'beautyscore' in listing %}
-                <h5>Beauty &amp; Spas score: {{ listing['beautyscore'] }}</h5>
+                <h5>Beauty &amp; Spas score: {{ listing['scores'][4] }}</h5>
                 {% end %}
                 
                 {% if 'nightlifescore' in listing %}
-                <h5>Nightlife score: {{ listing['nightlifescore'] }}</h5>
+                <h5>Nightlife score: {{ listing['scores'][5] }}</h5>
                 {% end %}
                 
                 {% if 'educationscore' in listing %}
-                <h5>Education score: {{ listing['educationscore'] }}</h5>
+                <h5>Education score: {{ listing['scores'][6] }}</h5>
                 {% end %}
                 
                 {% if 'artsscore' in listing %}
-                <h5>Arts &amp; Entertainment score: {{ listing['artsscore'] }}</h5>
+                <h5>Arts &amp; Entertainment score: {{ listing['scores'][7] }}</h5>
                 {% end %}
                 
             </div>
             
-            <div class="eight columns">
-                <h3>Food</h3>
-                
-                {% for business in food_businesses %}
-                    <ul>
-                    {% if 'name' in business %}
-                        <li><a href="{{"localhost:8888/business/" + business['id']}}" itemscope itemtype="http://schema.org/LocalBusiness">{{business['name']}}</a></li>
-                    {% end %}
-                    </ul>
-                {% end %}
-                
-            </div>
-            
-            <div class="eight columns">
-                <h3>Shopping</h3>
-                
-                {% for business in shopping_businesses %}
-                <ul>
-                    {% if 'name' in business %}
-                    <li><a href="{{"localhost:8888/business/" + business['id']}}" itemscope itemtype="http://schema.org/LocalBusiness">{{business['name']}}</a></li>
-                    {% end %}
-                </ul>
-                {% end %}
-                
-            </div>
-            
-            <div class="eight columns">
-                <h3>Nightlife</h3>
-                
-                {% for business in nightlife_businesses %}
-                <ul>
-                    {% if 'name' in business %}
-                    <li><a href="{{"localhost:8888/business/" + business['id']}}" itemscope itemtype="http://schema.org/LocalBusiness">{{business['name']}}</a></li>
-                    {% end %}
-                </ul>
-                {% end %}
-                
-            </div>
-            
-            <div class="eight columns">
-                <h3>Active Life</h3>
-                
-                {% for business in activelife_businesses %}
-                <ul>
-                    {% if 'name' in business %}
-                    <li><a href="{{"localhost:8888/business/" + business['id']}}" itemscope itemtype="http://schema.org/LocalBusiness">{{business['name']}}</a></li>
-                    {% end %}
-                </ul>
-                {% end %}
-                
-            </div>
-            
-            <div class="eight columns">
-                <h3>Education</h3>
-                
-                {% for business in education_businesses %}
-                <ul>
-                    {% if 'name' in business %}
-                    <li><a href="{{"localhost:8888/business/" + business['id']}}" itemscope itemtype="http://schema.org/LocalBusiness">{{business['name']}}</a></li>
-                    {% end %}
-                </ul>
-                {% end %}
-                
-            </div>
-            
-            <div class="eight columns">
-                <h3>Restaurants</h3>
-                
-                {% for business in restaurants_businesses %}
-                <ul>
-                    {% if 'name' in business %}
-                    <li><a href="{{"localhost:8888/business/" + business['id']}}" itemscope itemtype="http://schema.org/LocalBusiness">{{business['name']}}</a></li>
-                    {% end %}
-                </ul>
-                {% end %}
-                
-            </div>
-            
-            <div class="eight columns">
-                <h3>Arts &amp; Entertainment</h3>
-                
-                {% for business in arts_businesses %}
-                <ul>
-                    {% if 'name' in business %}
-                    <li><a href="{{"localhost:8888/business/" + business['id']}}" itemscope itemtype="http://schema.org/LocalBusiness">{{business['name']}}</a></li>
-                    {% end %}
-                </ul>
-                {% end %}
-                
-            </div>
-            
-            <div class="eight columns">
-                <h3>Beauty &amp; Spas</h3>
-                
-                {% for business in beauty_businesses %}
-                <ul>
-                    {% if 'name' in business %}
-                    <li><a href="{{"localhost:8888/business/" + business['id']}}" itemscope itemtype="http://schema.org/LocalBusiness">{{business['name']}}</a></li>
-                    {% end %}
-                </ul>
-                {% end %}
-                
-            </div>
-            </div>
             
         </div><!-- container -->
         

@@ -39,7 +39,7 @@ class AptService(tornado.web.Application):
             (r"/static/(.*)", tornado.web.StaticFileHandler, {"path": "/templates/"}),
             (r"/results", ResultsHandler),
             (r"/apartment/([0-9a-z]+)(\..+)?", ApartmentHandler),
-            (r"/business/([0-9a-z]+)(\..+)?", BusinessHandler)
+            (r"/business/([0-9a-z\-]+)(\..+)?", BusinessHandler)
         ]
         settings = dict(
             template_path=os.path.join(os.path.dirname(__file__), "templates"),
@@ -95,15 +95,13 @@ class ApartmentHandler(BaseHandler):
         if format == ".json":
             self.write(dict(apartment=listing))
         elif format is None:
-            self.render("apartment.html", listing=listing, food_businesses=[], shopping_businesses=[], nightlife_businesses=[], activelife_businesses=[], education_businesses=[], restaurants_businesses=[], arts_businesses=[], beauty_businesses=[])
+            self.render("apartment.html", listing=listing, scores=listing['cat_scores'])
         
 class BusinessHandler(BaseHandler):
     def get(self, id, format):
-        # TODO replace with db call like this
         business = self.db.get_business(id)
-    	business = {'name':business['_id'], 'type':'food', 'address':'401 College Ave, Ithaca, NY'}
-    	apartments = [{'title':1,'score':2,'pic':'http://images.craigslist.org/3G63F63H65Gd5E75M7cc97a6776566c861baf.jpg',
-    	'bedrooms':4,'price':5,'bathrooms':6,'url':'http://ithaca.craigslist.org/apa/3466893060.html','VIII':8,'description':9}]
+        # TODO format nearby apartments
+        apartments = []
 
         if format == ".json":
             self.write(dict(business=business))
@@ -121,6 +119,7 @@ class FindrDatabase(object):
 
     def get_apartment(self, id):
         apartment = self.apartments.find_one({"_id" : ObjectId(id)})
+        print apartment
         del apartment['_id']
         apartment['id'] = id
         if apartment is None:
@@ -128,12 +127,10 @@ class FindrDatabase(object):
         return apartment
 
     def get_business(self, id):
-        business = self.businesses.find_one({"_id" : ObjectId(id)})
-        del businesses['_id']
-        businesses['id'] = id
-        if businesses is None:
+        business = self.businesses.find_one({"_id" : id})
+        if business is None:
             raise tornado.web.HTTPError(404)
-        return apartment
+        return business
 
     def search(self, weights):
     	apt_heap  = []
