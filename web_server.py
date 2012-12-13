@@ -93,10 +93,9 @@ class ApartmentHandler(BaseHandler):
     	#	'bedrooms':2,'price':'$700','bathrooms':1,'url':'http://ithaca.craigslist.org/apa/3466893060.html','VIII':8, 
     	#	'description':'950 sq feet of pure, unadulterated college', 'foodscore':90, 'shoppingscore':93,'activescore':91,'retaurantscore':92,'beautyscore':84,'nightlifescore':95,'educationscore':87,'artsscore':82,}
         if format == ".json":
-            del listing['_id']
             self.write(dict(apartment=listing))
         elif format is None:
-            self.render("apartment.html", listing=listing)
+            self.render("apartment.html", listing=listing, food_businesses=[], shopping_businesses=[], nightlife_businesses=[], activelife_businesses=[], education_businesses=[], restaurants_businesses=[], arts_businesses=[], beauty_businesses=[])
         
 class BusinessHandler(BaseHandler):
     def get(self, id, format):
@@ -122,12 +121,16 @@ class FindrDatabase(object):
 
     def get_apartment(self, id):
         apartment = self.apartments.find_one({"_id" : ObjectId(id)})
+        del apartment['_id']
+        apartment['id'] = id
         if apartment is None:
             raise tornado.web.HTTPError(404)
         return apartment
 
     def get_business(self, id):
         business = self.businesses.find_one({"_id" : ObjectId(id)})
+        del businesses['_id']
+        businesses['id'] = id
         if businesses is None:
             raise tornado.web.HTTPError(404)
         return apartment
