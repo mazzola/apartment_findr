@@ -41,16 +41,20 @@
         <!-- Primary Page Layout
          ================================================== -->
         
+        
+        
         <div class="container">
             <div class="sixteen columns">
                 <h1 ="remove-bottom" style="margin-top: 40px">New York City Apartment Finder</h1>
                 <h5>Megan Baker, Najla Elmachtoub, Michael Mazzola</h5>
                 <hr />
             </div>
-                        
+            
+            
+            <div itemscope itemtype="http://schema.org/Residence">
             {% if 'title' in listing %}
             <div class="sixteen columns">
-                <h3>{{ listing['title'] }}</h3>
+                <h3 itemprop="name">{{ listing['title'] }}</h3>
             </div>
             {% end %}
             
@@ -58,10 +62,14 @@
             <div class="sixteen columns">
                 <div class="seven columns alpha">
                     {% if 'pic' in listing %}
-                    <center><img src="{{ listing['pic'] }}" height="250"></center>
+                    <center><img src="{{ listing['pic'] }}" height="250" itemprop="image"></center>
                     {% end %}
                 </div>
                 <div class="nine columns omega">
+                    
+                    {% if 'location' in listing %}
+                    <h5 itemprop="geo">Location: {{ listing['location'] }}</h5>
+                    {% end %}
                     
                     {% if 'bedrooms' in listing %}
                     <h5>Number of bedrooms: {{ listing['bedrooms'] }}</h5>
@@ -76,17 +84,18 @@
                     {% end %}
                     
                     {% if 'url' in listing %}
-                    <h5>Original Post: <a href="{{ listing['url'] }}">{{ listing['url'] }}</a></h5>
+                    <h5>Original Post: <a href="{{ listing['url'] }}" itemprop="url">{{ listing['url'] }}</a></h5>
                     {% end %}
                     
                     {% if 'description' in listing %}
                     <h5>Description:</h5>
-                    <p>{{ listing['description'] }}</p>
+                    <p itemprop="description">{{ listing['description'] }}</p>
                     {% end %}  
                     
                 </div>
             </div>
-
+            
+                
             <div class="sixteen columns">
                 <h3>Scores</h3>
                     
@@ -123,6 +132,111 @@
                 <h5>Arts &amp; Entertainment score: {{ listing['artsscore'] }}</h5>
                 {% end %}
                 
+            </div>
+            
+            <div class="eight columns">
+                <h3>Food</h3>
+                
+                {% for business in food_businesses}
+                    <ul>
+                    {% if 'name' in business %}
+                        <li><a href="{{"localhost:8888/business/" + business['id']}}" itemscope itemtype="http://schema.org/LocalBusiness">{{business['name']}}</a></li>
+                    {% end %}
+                    </ul>
+                {% end %}
+                
+            </div>
+            
+            <div class="eight columns">
+                <h3>Shopping</h3>
+                
+                {% for business in shopping_businesses}
+                <ul>
+                    {% if 'name' in business %}
+                    <li><a href="{{"localhost:8888/business/" + business['id']}}" itemscope itemtype="http://schema.org/LocalBusiness">{{business['name']}}</a></li>
+                    {% end %}
+                </ul>
+                {% end %}
+                
+            </div>
+            
+            <div class="eight columns">
+                <h3>Nightlife</h3>
+                
+                {% for business in nightlife_businesses}
+                <ul>
+                    {% if 'name' in business %}
+                    <li><a href="{{"localhost:8888/business/" + business['id']}}" itemscope itemtype="http://schema.org/LocalBusiness">{{business['name']}}</a></li>
+                    {% end %}
+                </ul>
+                {% end %}
+                
+            </div>
+            
+            <div class="eight columns">
+                <h3>Active Life</h3>
+                
+                {% for business in activelife_businesses}
+                <ul>
+                    {% if 'name' in business %}
+                    <li><a href="{{"localhost:8888/business/" + business['id']}}" itemscope itemtype="http://schema.org/LocalBusiness">{{business['name']}}</a></li>
+                    {% end %}
+                </ul>
+                {% end %}
+                
+            </div>
+            
+            <div class="eight columns">
+                <h3>Education</h3>
+                
+                {% for business in education_businesses}
+                <ul>
+                    {% if 'name' in business %}
+                    <li><a href="{{"localhost:8888/business/" + business['id']}}" itemscope itemtype="http://schema.org/LocalBusiness">{{business['name']}}</a></li>
+                    {% end %}
+                </ul>
+                {% end %}
+                
+            </div>
+            
+            <div class="eight columns">
+                <h3>Restaurants</h3>
+                
+                {% for business in restaurants_businesses}
+                <ul>
+                    {% if 'name' in business %}
+                    <li><a href="{{"localhost:8888/business/" + business['id']}}" itemscope itemtype="http://schema.org/LocalBusiness">{{business['name']}}</a></li>
+                    {% end %}
+                </ul>
+                {% end %}
+                
+            </div>
+            
+            <div class="eight columns">
+                <h3>Arts &amp; Entertainment</h3>
+                
+                {% for business in arts_businesses}
+                <ul>
+                    {% if 'name' in business %}
+                    <li><a href="{{"localhost:8888/business/" + business['id']}}" itemscope itemtype="http://schema.org/LocalBusiness">{{business['name']}}</a></li>
+                    {% end %}
+                </ul>
+                {% end %}
+                
+            </div>
+            
+            <div class="eight columns">
+                <h3>Beauty &amp; Spas</h3>
+                
+                {% for business in beauty_businesses}
+                <ul>
+                    {% if 'name' in business %}
+                    <li><a href="{{"localhost:8888/business/" + business['id']}}" itemscope itemtype="http://schema.org/LocalBusiness">{{business['name']}}</a></li>
+                    {% end %}
+                </ul>
+                {% end %}
+                
+            </div>
             </div>
             
         </div><!-- container -->
