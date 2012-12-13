@@ -49,31 +49,37 @@
                 <h5>Megan Baker, Najla Elmachtoub, Michael Mazzola</h5>
                 <hr />
             </div>
-            
+            <div itemscope itemtype="http://schema.org/LocalBusiness">
+
             {% if 'name' in business %}
             <div class="sixteen columns">
-                <h3>{{ business['name'] }}</h3>
+                <h3 itemprop="name">{{ business['name'] }}</h3>
             </div>
             {% end %}
             
             <div class="sixteen columns">                
                 {% if 'type' in business %}
-                <h5>Type: {{ business['type'] }}</h5>
+                <h5 itemprop="description">Type: {{ business['type'] }}</h5>
                 {% end %}
                 
                 {% if 'address' in business %}
-                <h5>Address: {{ business['address'] }}</h5>
+                <h5 itemprop="geo">Address: {{ business['address'] }}</h5>
+                {% end %}
+                
+                {% if 'rating' in business %}
+                <h5 itemprop="review">Rating: {{ business['rating'] }}</h5>
                 {% end %}
                 
                 <h5>Nearby apartments:</h5>
                 <ul>
                 {% for apartment in apartments %}
                     {% if 'url' in apartment %}
-                    <a href="{{apartment['url']}}"><li>{{ apartment['url'] }}</li></a>
+                    <a href="{{apartment['url']}}" itemscope itemtype="http://schema.org/Residence"><li>{{ apartment['url'] }}</li></a>
                     {% end %}
                 {% end %}
                 </ul>
                                 
+            </div>
             </div>
             
         </div><!-- container -->

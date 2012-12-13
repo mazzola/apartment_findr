@@ -79,6 +79,10 @@
                     <h5>Price: {{ listing['price'] }}</h5>
                     {% end %}
                     
+                    {% if 'id' in listing %}
+                    <h5>More information: <a href="{{"localhost:8888/apartment/" +{{ listing['id'] }}">localhost:8888/apartment/{{ listing['price'] }}</h5>
+                    {% end %}
+                    
                     {% if 'url' in listing %}
                     <h5>Original Post: <a href="{{ listing['url'] }}" itemprop="url">{{ listing['url'] }}</a></h5>
                     {% end %}
