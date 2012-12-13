@@ -138,10 +138,9 @@ class FindrDatabase(object):
     	weight_sum = sum([int(x) for x in weights])
         apartments = self.apartments.find()
         for apartment in apartments:
-        	cat_scores = yelp_api.get_yelp_scores(apartment['_id'])
-        	self.apartments.update({"_id": apartment['_id']}, {"$set": {"cat_scores": cat_scores}})
+        	cat_scores = apartment['cat_scores']
+        	#self.apartments.update({"_id": apartment['_id']}, {"$set": {"cat_scores": cat_scores}})
         	total_score = sum(a*b/weight_sum for a,b in zip(cat_scores,weights) )
-        	print total_score
         	apt_heap.append((1./total_score, apartment['_id']))
         # Calculate score for every apartment using wieghted average
         heapify(apt_heap)
@@ -149,7 +148,13 @@ class FindrDatabase(object):
         	best_apartments.append(heappop(apt_heap))
         # Search through all the apartments for the top 10
         print best_apartments
-        return best_apartments
+        listings = []
+        for (inv_score, obj_id) in best_apartments:
+            full_apt = self.apartments.find_one({"_id" : obj_id})
+            full_apt['score'] = 1/inv_score
+            print full_apt
+            listings.append(full_apt)
+        return listings
 
 ### Script entry point ###
 
