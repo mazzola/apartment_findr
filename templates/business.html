@@ -62,7 +62,7 @@
                 <h5 itemprop="description">Type: {{ business['type'] }}</h5>
                 {% end %}
                 
-                {% if 'address' in business %}
+                {% if 'display_address' in business %}
                 <h5 itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">Address: <span itemprop="streetAddress">{{ business['address'] }}</span></h5>
                 {% end %}
                 
@@ -73,7 +73,7 @@
                 <h5>Nearby apartments:</h5>
                 <ul>
                 {% for apartment in business['nearby_apts'] %}
-                     <a href="{{apartment}}" itemscope itemtype="http://schema.org/Residence"><li itemprop="url">localhost:8888/apartment/{{str(apartment)}}</li></a>
+                     <a href="localhost:8888/apartment/{{str(apartment)}}" itemscope itemtype="http://schema.org/Residence"><li itemprop="url">localhost:8888/apartment/{{str(apartment)}}</li></a>
                    
                 {% end %}
                 </ul>
