@@ -92,6 +92,10 @@
                 <h5>Original Post: <a href="{{ listing['url'] }}" itemprop="url">{{ listing['url'] }}</a></h5>
                 {% end %}
                 
+                {% if 'id' in listing %}
+                <h5>More information: <a href="{{"/apartment/" + listing['id'] }}">localhost:8888/apartment/{{ listing['id'] }}</a></h5>
+                {% end %}
+                
                 {% if 'description' in listing %}                
                 <h5>Description:</h5>
                 <p itemprop="description">{{ listing['description'] }}</p>

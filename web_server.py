@@ -90,13 +90,14 @@ class ApartmentHandler(BaseHandler):
     def get(self, id, format):
         listing = self.db.get_apartment(id)
         scores = listing['cat_scores']
+        businesses = listing['businesses_nearby']
         #listing = {'title':'2BD/1BA','score':87,'pic':'http://images.craigslist.org/3G63F63H65Gd5E75M7cc97a6776566c861baf.jpg',
     	#	'bedrooms':2,'price':'$700','bathrooms':1,'url':'http://ithaca.craigslist.org/apa/3466893060.html','VIII':8, 
     	#	'description':'950 sq feet of pure, unadulterated college', 'foodscore':90, 'shoppingscore':93,'activescore':91,'retaurantscore':92,'beautyscore':84,'nightlifescore':95,'educationscore':87,'artsscore':82,}
         if format == ".json":
             self.write(dict(apartment=listing))
         elif format is None:
-            self.render("apartment.html", listing=listing, scores=scores)
+            self.render("apartment.html", listing=listing, scores=scores, businesses=businesses)
         
 class BusinessHandler(BaseHandler):
     def get(self, id, format):
@@ -120,6 +121,7 @@ class FindrDatabase(object):
 
     def get_apartment(self, id):
         apartment = self.apartments.find_one({"_id" : ObjectId(id)})
+        print apartment
         del apartment['_id']
         apartment['id'] = id
         if apartment is None:
@@ -152,6 +154,7 @@ class FindrDatabase(object):
         for (inv_score, obj_id) in best_apartments:
             full_apt = self.apartments.find_one({"_id" : obj_id})
             full_apt['score'] = round(1/inv_score)
+            full_apt['id'] = str(obj_id)
             listings.append(full_apt)
         return listings
 
