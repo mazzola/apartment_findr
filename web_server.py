@@ -19,7 +19,7 @@ import tornado.ioloop
 import tornado.options
 import tornado.web
 
-
+from bson.objectid import ObjectId
 from bson.json_util import dumps
 from tornado.options import define, options
 
@@ -35,7 +35,7 @@ class MovieService(tornado.web.Application):
             (r"/", HomeHandler),
             (r"/static/(.*)", tornado.web.StaticFileHandler, {"path": "/templates/"}),
             (r"/results", ResultsHandler),
-            (r"/apartment(\..+)?", ApartmentHandler),
+            (r"/apartment/([0-9a-z]+)(\..+)?", ApartmentHandler),
             (r"/business", BusinessHandler)
         ]
         settings = dict(
@@ -68,7 +68,7 @@ class BaseHandler(tornado.web.RequestHandler):
     	h = self.request.headers.get_list('Accept')
     	print "Headers: ", h
     	return h
-    
+
 
 class HomeHandler(BaseHandler):
     def get(self):
@@ -76,13 +76,13 @@ class HomeHandler(BaseHandler):
         
 class ResultsHandler(BaseHandler):
     def get(self):
-    	listings = [{'title':1,'score':2,'pic':'http://images.craigslist.org/3G63F63H65Gd5E75M7cc97a6776566c861baf.jpg','bedrooms':4,'price':5,'bathrooms':6,'url':'http://ithaca.craigslist.org/apa/3466893060.html','VIII':8,'description':9}]
+    	listings = [{'title':'Best Apartment EVAR','score':2,'pic':'http://images.craigslist.org/3G63F63H65Gd5E75M7cc97a6776566c861baf.jpg','bedrooms':4,'price':5,'bathrooms':6,'url':'http://ithaca.craigslist.org/apa/3466893060.html','VIII':8,'description':9}]
         self.render("results.html", listings=listings)
         
 class ApartmentHandler(BaseHandler):
-    def get(self, format):
-        listing = self.db.apartments.find_one()
-    	#listing = {'title':'2BD/1BA','score':87,'pic':'http://images.craigslist.org/3G63F63H65Gd5E75M7cc97a6776566c861baf.jpg',
+    def get(self, id, format):
+        listing = self.db.get_apartment(id)
+        #listing = {'title':'2BD/1BA','score':87,'pic':'http://images.craigslist.org/3G63F63H65Gd5E75M7cc97a6776566c861baf.jpg',
     	#	'bedrooms':2,'price':'$700','bathrooms':1,'url':'http://ithaca.craigslist.org/apa/3466893060.html','VIII':8, 
     	#	'description':'950 sq feet of pure, unadulterated college', 'foodscore':90, 'shoppingscore':93,'activescore':91,'retaurantscore':92,'beautyscore':84,'nightlifescore':95,'educationscore':87,'artsscore':82,}
         if format == ".json":
@@ -97,14 +97,40 @@ class BusinessHandler(BaseHandler):
     	'bedrooms':4,'price':5,'bathrooms':6,'url':'http://ithaca.craigslist.org/apa/3466893060.html','VIII':8,'description':9}]
         self.render("business.html", business = business, apartments = apartments)
 
-                    
+## Database Controller
+class FindrDatabase(object):
+    def __init__(self):
+        print "Initializing database"
+        conn = MongoClient()
+        self.db = conn.findr_database
+        self.apartments = self.db.apartments
+        self.businesses = self.db.businesses
+
+    def get_apartment(self, id):
+        apartment = self.apartments.find_one({"_id" : ObjectId(id)})
+        if apartment is None:
+            raise tornado.web.HTTPError(404)
+        return apartment
+
+    def get_business(self, id):
+        return self.businesses.find_one({"_id" : ObjectId(id)})
+
+    def search(self, food, shopping, nightlife, active, education, restaurants, arts, beauty):
+        apartments = self.apartments.find()
+        for apartment in apartments:
+            pass
+            # Calculate score for every apartment using wieghted average
+
+        # Search through all the apartments for the top 10
+        best_apartments = []
+        return best_apartments
+
 ### Script entry point ###
 
 def main():
     tornado.options.parse_command_line()
     # Set up the database
-    conn = MongoClient()
-    db = conn.findr_database
+    db = FindrDatabase()
     # Set up the Web application, pass the database
     movie_webservice = MovieService(db)
     # Set up HTTP server, pass Web application
