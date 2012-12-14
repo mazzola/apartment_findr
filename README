@@ -49,3 +49,9 @@ Resources used
 # GitHub repository - https://github.com/mazzola/apartment_findr
 # Skeleton Framework - http://www.getskeleton.com/
 # Icons - http://dryicons.com
+
+#########
+
+Known Issues:
+  Although we have 100 apartments in our database, not all of them have computed scores.
+  This is because the yelp API restricted the number of queries we could  make per day.
