@@ -1,14 +1,51 @@
-## Database setup ##
-install mongodb
-run mongod in the terminal
+# INFO/CS 4302 Final Project Submission
 
-While in the main project directory run:
-mongorestore dump/findr_database/
+Names: Megan Baker, Najla Elmachtoub, Michael Mazzola
+Netids: mjb394, ne48, mdm275
 
-This should populate a new database called findr_database.
+#######
 
-## Running the webserver ##
-Install the necessary python libraries
+Database setup
 
-To start the webserver:
-python web_server.py
+# Install mongodb
+# Terminal commands from project directory
+
+	mongodb
+	mongorestore dump/findr_dtabase
+
+# This should populate a new database called findr_database.
+
+########
+
+Running Webserver (Python 2.7 / Mac OS X 10.7.4) from project directory:
+
+# Install necessary python libraries
+# Terminal command:
+
+	python web_server.py
+
+########
+
+Web Application (tested on Chrome and Safari):
+
+	http://localhost:8888
+
+# GET Operations in browser or using CURL:
+# Use IDs given by Craigslist and Yelp
+# Add .json to the end to retrieve different format
+	
+	curl http://localhost:8888/apartment/50c9d302307a321e46f5afe8
+	curl http://localhost:8888/business/good-beer-new-york
+	curl http://localhost:8888/apartment/50c9d302307a321e46f5afe8.json
+	curl http://localhost:8888/business/good-beer-new-york.json
+
+########
+
+Resources used
+
+# Craigslist Data - http://3taps.com/
+# Yelp Data - http://www.yelp.com/developers/
+# Google Maps - https://developers.google.com/maps/
+# GitHub repository - https://github.com/mazzola/apartment_findr
+# Skeleton Framework - http://www.getskeleton.com/
+# Icons - http://dryicons.com
